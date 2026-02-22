@@ -1,0 +1,28 @@
+{
+    "name": "sonysarkis/skills",
+    "description": "Laravel package to interact with DummyJson",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "sonysarkis",
+            "email": "sonygomez6@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "saloonphp/saloon": "v3.x-dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sonysarkis\\Skills\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sonysarkis\\Skills\\SkillsServiceProvider"
+            ]
+        }
+    }
+}
