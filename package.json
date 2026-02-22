@@ -1,0 +1,35 @@
+{
+  "name": "skills",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sonysarkis/skills.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/sonysarkis/skills/issues"
+  },
+  "homepage": "https://github.com/sonysarkis/skills#readme",
+  "dependencies": {
+    "vue": "^3.5.28"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.4",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "vue-tsc": "^3.2.5"
+  }
+}

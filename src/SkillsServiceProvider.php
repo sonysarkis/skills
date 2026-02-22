@@ -22,10 +22,19 @@ class SkillsServiceProvider extends ServiceProvider
     
     public function boot(): void
     {
+
+    $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+    $this->loadViewsFrom(__DIR__.'/../resources/views', 'skills');
+
+
         if ($this->app->runningInConsole()) {$this->publishes([
                 __DIR__.'/../config/quotes.php' => 
                 config_path('quotes.php'),
             ], 'quotes-config');
+
+            $this->publishes([
+                __DIR__.'/../dist' => public_path('vendor/skills'),
+            ], 'quotes-assets');
 
             $this->commands([
                 \Sonysarkis\Skills\Console\Commands\ImportQuotesCommand::class,
