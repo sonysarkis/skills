@@ -3,15 +3,17 @@
 Laravel package to fetch, cache, and display quotes from DummyJSON.
 
 ## Installation Guide
+
 ### Requirements
 
 - PHP 8.2+
 - Composer
 - Node.js + npm (for frontend assets)
 
-
 ### Install as a local package in a Laravel app
+
 1. Add this package as a path repository in your Laravel app `composer.json`:
+
 ```json
 "repositories": [
 	{
@@ -22,17 +24,30 @@ Laravel package to fetch, cache, and display quotes from DummyJSON.
 ```
 
 2. Require the package:
+
 ```bash
 composer require sonysarkis/skills *@dev
 ```
 
+If your host app only allows stable packages, set these Composer options before requiring the package:
+
+```bash
+composer config minimum-stability dev
+composer config prefer-stable true
+```
+
 3. Publish package resources:
+
 ```bash
 php artisan vendor:publish --tag=quotes-config
 php artisan vendor:publish --tag=quotes-assets
 ```
+
 4. Open the UI:
    http://localhost:8000/quotes-ui
+
+
+
 
 ## Rate Limiting Strategy
 
@@ -56,10 +71,26 @@ This process automatically:
 4. Publishes config and frontend assets.
 5. Starts Laravel on port `8080`.
 
-Open:
+Verify the UI in:
 
 ```text
 http://localhost:8080/quotes-ui
+```
+
+### Console Commands (Docker, inside container)
+
+After the container is running, these commands can be used to validate functionality from the host terminal.
+
+1. Run the batch import command in the Laravel host app:
+
+```bash
+docker compose exec skills-app bash -lc "cd /var/www/host-app; php artisan quotes:batch-import 15"
+```
+
+2. Run package tests inside the container:
+
+```bash
+docker compose exec skills-app bash -lc "cd /var/www/skills; composer install; vendor/bin/pest"
 ```
 
 ### Stop and clean containers
@@ -67,15 +98,12 @@ http://localhost:8080/quotes-ui
 ```bash
 docker-compose down -v
 ```
-
 OR
-
 ```bash
 docker compose down --volumes --remove-orphans
 ```
 
-## Testing
-
+## Local Tests
 From the package root, run:
 
 ```bash
@@ -84,6 +112,7 @@ vendor/bin/pest
 
 
 
-## Development process
+
+## Development Process
 
 To tackle this project, I opted for an incremental approach, ensuring each functional block was secure before moving on to the next. I started by laying the foundations of the package architecture (Service Providers, Facades, and configuration) and then established communication with DummyJSON using Saloon. With the connection ready, I incorporated the cache-based rate limiting system and its custom exception, which was key to being able to schedule the quotes:batch-import command with the ability to catch errors and automatically retry requests. Once the data ingestion was robust, I implemented caching using a sorted array along with the binary search algorithm for ID-based queries. Finally, I developed the interface in Vue.js compiled with Vite, packaged the entire solution in a self-configuring Docker environment, and reinforced the business logic with unit and integration tests in Pest
