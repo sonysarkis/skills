@@ -24,6 +24,7 @@ Laravel package to fetch, cache, and display quotes from DummyJSON.
 2. Require the package:
 ```bash
 composer require sonysarkis/skills *@dev
+```
 
 3. Publish package resources:
 ```bash
@@ -31,10 +32,7 @@ php artisan vendor:publish --tag=quotes-config
 php artisan vendor:publish --tag=quotes-assets
 ```
 4. Open the UI:
-http://localhost:8000/quotes-ui
-
-
-
+   http://localhost:8000/quotes-ui
 
 ## Rate Limiting Strategy
 
@@ -69,11 +67,23 @@ http://localhost:8080/quotes-ui
 ```bash
 docker-compose down -v
 ```
+
 OR
 
 ```bash
 docker compose down --volumes --remove-orphans
 ```
 
-## Proceso de Desarrollo
+## Testing
+
+From the package root, run:
+
+```bash
+vendor/bin/pest
+```
+
+
+
+## Development process
+
 To tackle this project, I opted for an incremental approach, ensuring each functional block was secure before moving on to the next. I started by laying the foundations of the package architecture (Service Providers, Facades, and configuration) and then established communication with DummyJSON using Saloon. With the connection ready, I incorporated the cache-based rate limiting system and its custom exception, which was key to being able to schedule the quotes:batch-import command with the ability to catch errors and automatically retry requests. Once the data ingestion was robust, I implemented caching using a sorted array along with the binary search algorithm for ID-based queries. Finally, I developed the interface in Vue.js compiled with Vite, packaged the entire solution in a self-configuring Docker environment, and reinforced the business logic with unit and integration tests in Pest
