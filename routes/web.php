@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Cache;
 use Sonysarkis\Skills\Facades\Skills;
+use Sonysarkis\Skills\Exceptions\RateLimitExceededException;
 
 Route::get('/quotes-ui', function () {
     return view('skills::app');
@@ -17,8 +18,10 @@ Route::get('/api/quotes/{id}', function ($id) {
     try {
         $quote = Skills::getQuote((int) $id);
         return response()->json($quote);
-        
-    } catch (\Exception $e) {
+
+    } catch (RateLimitExceededException $e) {
         return response()->json(['error' => $e->getMessage()], 429);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Unexpected server error.'], 500);
     }
 });

@@ -27,7 +27,7 @@
     @if(isset($jsFile))
         <script type="module" src="{{ asset($jsFile) }}"></script>
     @else
-        <p style="color: red; text-align: center;">Por favor, ejecuta "php artisan vendor:publish --tag=quotes-assets" para ver la interfaz.</p>
+        <p style="color: red; text-align: center;">Please run "php artisan vendor:publish --tag=quotes-assets" to load the interface.</p>
     @endif
 </body>
 </html>

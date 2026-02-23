@@ -5,14 +5,6 @@ use Saloon\Http\Faking\MockResponse;
 use Sonysarkis\Skills\Http\Integrations\DummyJson\DummyJsonConnector;
 use Sonysarkis\Skills\Http\Integrations\DummyJson\Requests\GetQuoteRequest;
 
-if (!function_exists('config')) {
-    function config($key, $default = null) {
-        if ($key === 'quotes.base_url') {
-            return 'https://dummyjson.com';
-        }
-        return $default;
-    }
-}
 
 it('simulates the DummyJSON API and returns a fake quote (Mocking)', function () {
     $mockClient = new MockClient([
